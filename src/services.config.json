@@ -1,0 +1,18 @@
+{
+    "MAILER": {
+        "NAME": "MAILER",
+        "URL": "amqp://admin:admin429@localhost:5672",
+        "QUEUE": "amp-mail",
+        "EMAIL": "infor@umodzisource.com",
+        "FROM": "Amphibia"
+    },
+    "SMS": {
+        "NAME": "SMS",
+        "URL": "tcp://*:6666",
+        "FROM": "Rocket"
+    },
+    "TOKEN": {
+        "SECRET": "WP7DpmphuaGBDKjPAVM",
+        "EXPIRES": "36000"
+    }
+}
