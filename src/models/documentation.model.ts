@@ -6,8 +6,10 @@ export class Documentation extends Entity {
     type: 'string',
     id: true,
     generated: false,
+    defaultFn: 'uuidv4',
+    required: true,
   })
-  id?: string;
+  id: string;
 
   @property({
     type: 'string',
@@ -47,6 +49,10 @@ export class Documentation extends Entity {
   })
   status: boolean;
 
+  @property({
+    type: 'string',
+  })
+  documentationTypeId?: string;
 
   constructor(data?: Partial<Documentation>) {
     super(data);

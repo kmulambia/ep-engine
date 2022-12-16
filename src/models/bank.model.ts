@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, hasMany} from '@loopback/repository';
+import {VendorAccount} from './vendor-account.model';
 
 @model()
 export class Bank extends Entity {
@@ -26,15 +27,18 @@ export class Bank extends Entity {
 
   @property({
     type: 'array',
-    itemType: 'string',
+    itemType: 'any',
   })
-  branches?: string[];
+  branches?: any[];
 
   @property({
     type: 'boolean',
     default: false,
   })
   status?: boolean;
+
+  @hasMany(() => VendorAccount)
+  vendorAccounts: VendorAccount[];
 
   constructor(data?: Partial<Bank>) {
     super(data);

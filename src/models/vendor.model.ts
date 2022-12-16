@@ -1,4 +1,9 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
+import {VendorType} from './vendor-type.model';
+import {VendorAccount} from './vendor-account.model';
+import {BusinessSegment} from './business-segment.model';
+import {User} from './user.model';
+import {VendorUser} from './vendor-user.model';
 
 @model()
 export class Vendor extends Entity {
@@ -43,6 +48,18 @@ export class Vendor extends Entity {
     type: 'boolean',
   })
   status?: boolean;
+
+  @belongsTo(() => VendorType)
+  vendorTypeId: number;
+
+  @hasMany(() => VendorAccount)
+  vendorAccounts: VendorAccount[];
+
+  @belongsTo(() => BusinessSegment)
+  businessSegmentId: number;
+
+  @hasMany(() => User, {through: {model: () => VendorUser}})
+  users: User[];
 
   constructor(data?: Partial<Vendor>) {
     super(data);

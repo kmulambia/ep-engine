@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, hasMany} from '@loopback/repository';
+import {Documentation} from './documentation.model';
 
 @model()
 export class DocumentationType extends Entity {
@@ -20,6 +21,8 @@ export class DocumentationType extends Entity {
   })
   details?: string;
 
+  @hasMany(() => Documentation)
+  documentations: Documentation[];
 
   constructor(data?: Partial<DocumentationType>) {
     super(data);

@@ -1,7 +1,9 @@
-import {Entity, model, property, hasOne, referencesMany, belongsTo} from '@loopback/repository';
+import {Entity, model, property, hasOne, referencesMany, belongsTo, hasMany} from '@loopback/repository';
 import {UserCredentials} from './user-credentials.model';
 import {Acl} from './acl.model';
 import {Role} from './role.model';
+import {Vendor} from './vendor.model';
+import {VendorUser} from './vendor-user.model';
 
 @model({
   settings: {
@@ -57,9 +59,12 @@ export class User extends Entity {
   })
   status: boolean;
 
+
   // @property({
   //   type: 'any',
   // })
+  @hasMany(() => Vendor, {through: {model: () => VendorUser}})
+  vendors: Vendor[];
   // data1?: any;
 
   // @property({

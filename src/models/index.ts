@@ -13,3 +13,5 @@ export * from './address-book.model';
 export * from './documentation.model';
 export * from './documentation-type.model';
 export * from './vendor.model';
+export * from './vendor-user.model';
+export * from './country.model';

@@ -35,6 +35,15 @@ export class VendorAccount extends Entity {
   })
   status?: string;
 
+  @property({
+    type: 'number',
+  })
+  vendorId?: number;
+
+  @property({
+    type: 'number',
+  })
+  bankId?: number;
 
   constructor(data?: Partial<VendorAccount>) {
     super(data);
