@@ -1,12 +1,13 @@
 import {inject, Getter} from '@loopback/core';
 import {DefaultCrudRepository, repository, BelongsToAccessor, HasManyRepositoryFactory, HasManyThroughRepositoryFactory} from '@loopback/repository';
 import {DbDataSource} from '../datasources';
-import {Vendor, VendorRelations, VendorType, VendorAccount, BusinessSegment, User, VendorUser} from '../models';
+import {Vendor, VendorRelations, VendorType, VendorAccount, BusinessSegment, User, VendorUser, Country} from '../models';
 import {VendorTypeRepository} from './vendor-type.repository';
 import {VendorAccountRepository} from './vendor-account.repository';
 import {BusinessSegmentRepository} from './business-segment.repository';
 import {VendorUserRepository} from './vendor-user.repository';
 import {UserRepository} from './user.repository';
+import {CountryRepository} from './country.repository';
 
 export class VendorRepository extends DefaultCrudRepository<
   Vendor,
@@ -25,10 +26,14 @@ export class VendorRepository extends DefaultCrudRepository<
           typeof Vendor.prototype.id
         >;
 
+  public readonly country: BelongsToAccessor<Country, typeof Vendor.prototype.id>;
+
   constructor(
-    @inject('datasources.db') dataSource: DbDataSource, @repository.getter('VendorTypeRepository') protected vendorTypeRepositoryGetter: Getter<VendorTypeRepository>, @repository.getter('VendorAccountRepository') protected vendorAccountRepositoryGetter: Getter<VendorAccountRepository>, @repository.getter('BusinessSegmentRepository') protected businessSegmentRepositoryGetter: Getter<BusinessSegmentRepository>, @repository.getter('VendorUserRepository') protected vendorUserRepositoryGetter: Getter<VendorUserRepository>, @repository.getter('UserRepository') protected userRepositoryGetter: Getter<UserRepository>,
+    @inject('datasources.db') dataSource: DbDataSource, @repository.getter('VendorTypeRepository') protected vendorTypeRepositoryGetter: Getter<VendorTypeRepository>, @repository.getter('VendorAccountRepository') protected vendorAccountRepositoryGetter: Getter<VendorAccountRepository>, @repository.getter('BusinessSegmentRepository') protected businessSegmentRepositoryGetter: Getter<BusinessSegmentRepository>, @repository.getter('VendorUserRepository') protected vendorUserRepositoryGetter: Getter<VendorUserRepository>, @repository.getter('UserRepository') protected userRepositoryGetter: Getter<UserRepository>, @repository.getter('CountryRepository') protected countryRepositoryGetter: Getter<CountryRepository>,
   ) {
     super(Vendor, dataSource);
+    this.country = this.createBelongsToAccessorFor('country', countryRepositoryGetter,);
+    this.registerInclusionResolver('country', this.country.inclusionResolver);
     this.users = this.createHasManyThroughRepositoryFactoryFor('users', userRepositoryGetter, vendorUserRepositoryGetter,);
     this.registerInclusionResolver('users', this.users.inclusionResolver);
     this.businessSegment = this.createBelongsToAccessorFor('businessSegment', businessSegmentRepositoryGetter,);

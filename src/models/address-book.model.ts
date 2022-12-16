@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Country} from './country.model';
 
 @model()
 export class AddressBook extends Entity {
@@ -15,11 +16,6 @@ export class AddressBook extends Entity {
   })
   name: string;
 
-  @property({
-    type: 'string',
-    required: true,
-  })
-  country_region: string;
 
   @property({
     type: 'string',
@@ -72,6 +68,8 @@ export class AddressBook extends Entity {
   })
   status?: boolean;
 
+  @belongsTo(() => Country)
+  countryId: string;
 
   constructor(data?: Partial<AddressBook>) {
     super(data);

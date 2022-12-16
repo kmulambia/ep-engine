@@ -4,6 +4,7 @@ import {VendorAccount} from './vendor-account.model';
 import {BusinessSegment} from './business-segment.model';
 import {User} from './user.model';
 import {VendorUser} from './vendor-user.model';
+import {Country} from './country.model';
 
 @model()
 export class Vendor extends Entity {
@@ -19,10 +20,7 @@ export class Vendor extends Entity {
   })
   name?: string;
 
-  @property({
-    type: 'string',
-  })
-  country?: string;
+
 
   @property({
     type: 'string',
@@ -60,6 +58,9 @@ export class Vendor extends Entity {
 
   @hasMany(() => User, {through: {model: () => VendorUser}})
   users: User[];
+
+  @belongsTo(() => Country)
+  countryId: string;
 
   constructor(data?: Partial<Vendor>) {
     super(data);

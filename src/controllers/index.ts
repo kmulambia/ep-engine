@@ -10,3 +10,5 @@ export * from './documentation-type-documentation.controller';
 export * from './bank-vendor-account.controller';
 export * from './user-vendor.controller';
 export * from './vendor-user.controller';
+export * from './vendor-country.controller';
+export * from './address-book-country.controller';
